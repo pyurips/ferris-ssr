@@ -1,18 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="//unpkg.com/alpinejs" defer></script>
     <script src="https://unpkg.com/htmx.org@2.0.1"></script>
     <title>Document</title>
   </head>
-  <body class="flex flex-1 flex-col h-screen bg-stone-950 items-center justify-center gap-10">
-    <img class="animate-pulse w-[200px]" src="/assets/rust_logo.png" alt="Rust logo">
-    <p class="text-stone-100 text-sm">Olá</p>
-    <div class="flex flex-row gap-5">
-      __button__
+  <body
+    x-data
+    class="flex flex-1 flex-col h-screen bg-stone-950 items-center justify-center gap-10"
+  >
+    <img
+      class="animate-pulse w-[200px]"
+      src="/assets/rust_logo.png"
+      alt="Rust logo"
+    />
+    <p class="text-stone-100 text-sm">
+      Try to increase the counter: <span x-text="$store.counter.value"></span>
+    </p>
+    <div class="flex flex-row gap-5 items-center">
+      __button__ __htmx_button__
     </div>
+
+    <script>
+      document.addEventListener('alpine:init', () => {
+        Alpine.store('counter', {
+          value: 0,
+          increase() {
+            this.value++;
+          },
+        });
+      });
+    </script>
   </body>
 </html>

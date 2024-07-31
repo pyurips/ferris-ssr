@@ -1,5 +1,9 @@
-<button class="p-4 rounded-md bg-stone-100">
-  <p class="text-stone-950">
-    Do a HTMX request
-  </p>
+<button
+  id="request"
+  hx-target="#request"
+  hx-get="/htmx-request"
+  hx-swap="outerHTML"
+  class="p-4 rounded-md bg-stone-100"
+>
+  <p class="text-stone-950">Do a HTMX request</p>
 </button>
