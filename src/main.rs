@@ -4,7 +4,6 @@ use actix_files as fs;
 use actix_web::{get, App, HttpResponse, HttpServer, Responder};
 use ssr_rust_template::Component;
 
-
 const COMPONENTS_DIR: &str = "./components";
 
 #[get("/")]
@@ -16,7 +15,8 @@ async fn render_example() -> impl Responder {
     increase_button_data.insert("color".to_string(), "bg-stone-100".to_string());
     increase_button_data.insert("text".to_string(), "Increase the counter".to_string());
 
-    let increase_particle_button = component.spawn("particles/increase_button", Some(&increase_button_data));
+    let increase_particle_button =
+        component.spawn("particles/increase_button", Some(&increase_button_data));
     let htmx_particle_button = component.spawn("particles/htmx_button", None);
 
     let mut components = HashMap::new();
