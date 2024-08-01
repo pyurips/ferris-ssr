@@ -2,24 +2,28 @@ use std::collections::HashMap;
 
 use actix_files as fs;
 use actix_web::{get, App, HttpResponse, HttpServer, Responder};
+use ssr_rust_template::Component;
 
-mod default;
-use default::get_component;
+
+const COMPONENTS_DIR: &str = "./components";
 
 #[get("/")]
 async fn render_example() -> impl Responder {
-    let mut button_data = HashMap::new();
-    button_data.insert("color".to_string(), "bg-stone-100".to_string());
-    button_data.insert("text".to_string(), "Increase the counter".to_string());
-    let increase_particle_button =
-        get_component("particles/increase_button", None, Some(&button_data));
-    let htmx_particle_button = get_component("particles/htmx_button", None, None);
+    let component = Component::new(COMPONENTS_DIR);
+
+    let mut increase_button_data = HashMap::new();
+
+    increase_button_data.insert("color".to_string(), "bg-stone-100".to_string());
+    increase_button_data.insert("text".to_string(), "Increase the counter".to_string());
+
+    let increase_particle_button = component.spawn("particles/increase_button", Some(&increase_button_data));
+    let htmx_particle_button = component.spawn("particles/htmx_button", None);
 
     let mut components = HashMap::new();
     components.insert("button".to_string(), increase_particle_button.unwrap());
     components.insert("htmx_button".to_string(), htmx_particle_button.unwrap());
 
-    let main_component = get_component("main", Some(&components), None);
+    let main_component = component.spawn("main", Some(&components));
     HttpResponse::Ok()
         .content_type("text/html")
         .body(main_component.unwrap())
