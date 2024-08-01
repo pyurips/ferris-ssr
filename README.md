@@ -44,3 +44,18 @@ Fresh (Deno) | Apdex: 0.64
 Ferris SSR (Rust) | Apdex: 1
 ![rust_test](https://github.com/user-attachments/assets/747ad780-08ac-425c-9d20-7d78531ac28f)
 
+#### How to run
+```
+git clone git@github.com:pyurips/ferris-ssr.git
+```
+
+Enter the directory where the clone was made.
+
+```
+cargo build --release
+```
+
+```
+cargo run --release
+```
+
