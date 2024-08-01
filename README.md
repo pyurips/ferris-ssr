@@ -3,7 +3,7 @@
 **Ferris SSR** is a template for Server-Side Rendering (SSR) that features a system for componentizing HTML elements, passing any type of data to components, and managing application state.
 
 #### Security considerations
-Note that this template does not include security mechanisms for common threats such as XSS (Cross-Site Scripting). Users should be aware of these potential vulnerabilities and implement appropriate security measures as needed.
+Note that this template does not include security mechanisms for common threats such as XSS (Cross-Site Scripting). Developers should be aware of these potential vulnerabilities and implement appropriate security measures as needed.
 
 #### Technologies
 - **Actix**: A fast and powerful web framework for Rust, used to build high-performance APIs and web applications.
