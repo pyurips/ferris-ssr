@@ -1,7 +1,9 @@
 use std::collections::HashMap;
+use std::env;
 
 use actix_files as fs;
 use actix_web::{get, App, HttpResponse, HttpServer, Responder};
+use dotenv::dotenv;
 use ssr_rust_template::Component;
 
 const COMPONENTS_DIR: &str = "./components";
@@ -38,13 +40,22 @@ async fn htmx_example() -> impl Responder {
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
+    dotenv().ok();
+
+    let mut port = 8080;
+
+    match env::var("PORT") {
+        Ok(port_avaible) => port = port_avaible.parse().unwrap(),
+        Err(_) => (),
+    }
+
     HttpServer::new(|| {
         App::new()
             .service(render_example)
             .service(htmx_example)
             .service(fs::Files::new("/assets", "./assets").show_files_listing())
     })
-    .bind(("127.0.0.1", 8080))?
+    .bind(("0.0.0.0", port))?
     .run()
     .await
 }
